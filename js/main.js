@@ -14,7 +14,7 @@ app.init = () => {
   app.camera.position.x = -100;
   app.camera.position.y = 250;
   app.camera.position.z = 100;
-  // app.camera.position.set(-100, 250, 100);
+  // app.camera.position.set(-100, 250, 100); shortcut
 
   app.camera.lookAt(app.scene.position); // (0,0,0)
 
@@ -25,8 +25,9 @@ app.init = () => {
 
   document.getElementById('output').appendChild(app.renderer.domElement);
 
-  app.axes = new THREE.AxesHelper(200);
-  app.scene.add(app.axes);
+  /* axis helpers */
+  // app.axes = new THREE.AxesHelper(200);
+  // app.scene.add(app.axes);
 
   app.spotLight = app.createSpotLight();
   app.scene.add(app.spotLight);
@@ -52,6 +53,9 @@ app.init = () => {
     app.cubes.push(cube);
   }
 
+  app.particleSystem = app.createParticleSystem();
+  app.scene.add(app.particleSystem);
+
   app.mouseControls = new THREE.OrbitControls(
       app.camera,
       app.renderer.domElement,
@@ -67,10 +71,13 @@ window.onload = app.init;
 
 app.animate = () => {
 
+  app.animateParticleSystem();
+
   app.step += 0.1;
 
-  app.sphere.rotation.y += 0.1;
+  app.sphere.rotation.y += 0.05;
 
+  /* -------- moves the earth in circles ----------- */
   // app.sphere.position.x = Math.cos(app.step) * 20;
   // app.sphere.position.y = Math.sin(app.step) * 20;
   // app.sphere.position.z += 0.1;
@@ -78,6 +85,7 @@ app.animate = () => {
   // app.sphere.position.x += 0.1;
   // app.sphere.position.y += 0.1;
   // app.sphere.position.z += 0.1;
+  /*-------------------------------------------------*/
 
   app.cube.rotation.x += 0.01;
   app.cube.rotation.y += 0.01;
