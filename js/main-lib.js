@@ -17,7 +17,8 @@ app.createSphere = () => {
 
   const sphereMaterial = new THREE.MeshPhongMaterial({
     color: 0x8aeed4,
-    wireframe: true,
+    // wireframe: true,
+    map: new THREE.TextureLoader().load('img/earth.jpg'),
   });
 
   const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
@@ -28,9 +29,9 @@ app.createSphere = () => {
 
 app.createCube = (x, y, z) => {
   const cubeGeometry = new THREE.BoxGeometry(
-      5, // width
-      5, // height
-      5, // depth
+      8, // width
+      8, // height
+      8, // depth
   );
 
   const cubeMaterial = new THREE.MeshLambertMaterial({
@@ -39,6 +40,10 @@ app.createCube = (x, y, z) => {
 
   const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
   cube.position.set(x, y,z);
+
+  cube.rotation.x = Math.random();
+  cube.rotation.y = Math.random();
+  cube.rotation.z = Math.random();
 
   cube.material.color.setRGB(
       Math.random(),

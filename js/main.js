@@ -40,10 +40,24 @@ app.init = () => {
   app.cube = app.createCube(50, 50, 0);
   app.scene.add(app.cube);
 
+  app.cubes = [];
+  for (let i = 0; i < 30; i++) {
+    const range = 100;
+    const cube = app.createCube(
+        THREE.Math.randInt(-range, range), // x
+        THREE.Math.randInt(-range, range), // y
+        THREE.Math.randInt(-range, range), // z
+    );
+    app.scene.add(cube);
+    app.cubes.push(cube);
+  }
+
   app.mouseControls = new THREE.OrbitControls(
       app.camera,
       app.renderer.domElement,
   )
+
+  app.step = 0;
 
   app.animate();
 }
@@ -52,11 +66,30 @@ app.init = () => {
 window.onload = app.init;
 
 app.animate = () => {
-  app.renderer.render(app.scene, app.camera);
+
+  app.step += 0.1;
+
+  app.sphere.rotation.y += 0.1;
+
+  // app.sphere.position.x = Math.cos(app.step) * 20;
+  // app.sphere.position.y = Math.sin(app.step) * 20;
+  // app.sphere.position.z += 0.1;
+
+  // app.sphere.position.x += 0.1;
+  // app.sphere.position.y += 0.1;
+  // app.sphere.position.z += 0.1;
 
   app.cube.rotation.x += 0.01;
   app.cube.rotation.y += 0.01;
   app.cube.rotation.z += 0.01;
+
+  app.cubes.forEach(cube => {
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
+    cube.rotation.z += 0.01;
+  })
+
+  app.renderer.render(app.scene, app.camera);
 
   app.mouseControls.update();
 
